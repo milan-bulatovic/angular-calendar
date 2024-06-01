@@ -1,0 +1,27 @@
+@import "../../scss/main";
+
+.appointments {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 100%;
+
+  position: relative;
+
+  &__single {
+    width: inherit;
+    background-color: #424242;
+    color: $text-color;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    // width: 100%;
+  }
+}

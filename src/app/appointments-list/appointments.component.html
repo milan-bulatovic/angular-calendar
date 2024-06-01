@@ -1,0 +1,35 @@
+<div class="appointments">
+  <div
+    class="appointments__list"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+  >
+    <ng-container *ngIf="receivedData.length > 0; else noContentBlock">
+      <div
+        class="appointments__single"
+        *ngFor="let appointment of receivedData; let i = index"
+        cdkDrag
+        [cdkDragData]="appointment"
+      >
+        <app-appointment-single
+          [data]="appointment"
+          (deleteAppointment)="onDeleteAppointment(i)"
+        ></app-appointment-single>
+      </div>
+    </ng-container>
+    <ng-template #noContentBlock>
+      <div class="no-content">No appointments available.</div>
+    </ng-template>
+  </div>
+
+  <button mat-raised-button (click)="openDialog('0ms', '0ms')">ADD NEW</button>
+</div>
+
+<!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  @for (movie of movies; track movie) {
+    <div class="example-box" cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      {{movie}}
+    </div>
+  }
+</div> -->

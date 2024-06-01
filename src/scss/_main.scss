@@ -1,0 +1,54 @@
+/*Vars*/
+$primary: #424242;
+$secondary: #c2185b;
+$text-color: #ffffff;
+
+/*Flex mixin*/
+@mixin flex($align, $justify) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+/*Globals*/
+
+p {
+  margin: 0;
+}
+
+.btn {
+  color: white;
+  border-radius: 4px;
+  padding: 7px 15px;
+  border: none;
+  outline: none;
+  background-color: $secondary;
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+
+/*Styles*/
+.wrapper {
+  margin: 0 auto;
+  max-width: 1600px;
+  height: 100%;
+  @include flex(center, space-around);
+  flex-direction: column;
+  border-radius: 4px;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(230, 230, 230);
+  @include flex(flex-start, space-between);
+  overflow: auto;
+  height: inherit;
+  padding: 20px;
+  gap: 20px;
+
+  .appointment {
+    flex: 1;
+    height: 100%;
+  }
+}

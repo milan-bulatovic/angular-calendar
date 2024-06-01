@@ -1,0 +1,12 @@
+.demo-inline-calendar-card {
+  width: 300px;
+}
+
+::ng-deep .mat-calendar-body-cell.selected-date {
+  background-color: rgb(
+    204,
+    21,
+    85
+  ); // Light blue background for selected dates
+  border-radius: 50%;
+}

@@ -1,0 +1,24 @@
+<div class="dialog">
+  <form [formGroup]="form">
+    <mat-dialog-content class="dialog__content">
+      <h1>Add new appointment</h1>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <textarea placeholder="Additional info" formControlName="note"></textarea>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close cdkFocusInitial (click)="onSubmit()">
+        Add
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>
