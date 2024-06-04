@@ -1,0 +1,14 @@
+@import "../../../scss/main";
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0 2rem 0;
+
+  .btn {
+    text-decoration: none;
+    background: $primary;
+  }
+}

@@ -15,9 +15,36 @@
       <textarea placeholder="Additional info" formControlName="note"></textarea>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button mat-dialog-close cdkFocusInitial (click)="onSubmit()">
+      <button
+        mat-button
+        mat-dialog-close
+        [disabled]="!form.valid"
+        [class.invalid]="!form.valid"
+      >
+        Cancel
+      </button>
+
+      <button
+        *ngIf="!edit"
+        mat-button
+        mat-dialog-close
+        cdkFocusInitial
+        (click)="onSubmit()"
+        [disabled]="!form.valid"
+        [class.invalid]="!form.valid"
+      >
         Add
+      </button>
+      <button
+        *ngIf="edit"
+        mat-button
+        mat-dialog-close
+        cdkFocusInitial
+        (click)="onUpdate()"
+        [disabled]="!form.valid"
+        [class.invalid]="!form.valid"
+      >
+        Update
       </button>
     </mat-dialog-actions>
   </form>

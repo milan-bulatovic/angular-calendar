@@ -1,17 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   MatCalendar,
   MatCalendarCellClassFunction,
 } from '@angular/material/datepicker';
-import { DataService } from '../shared/services/send-data.service';
+import { DataService } from '../../shared/services/send-data.service';
 import { Subject, takeUntil } from 'rxjs';
-import { Appointment } from '../appointments-list/new-appointment/new-appointment.component';
+import { Appointment } from '../../shared/models/appointment.model';
 
 @Component({
   selector: 'app-calendar',
@@ -19,14 +13,13 @@ import { Appointment } from '../appointments-list/new-appointment/new-appointmen
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit, OnDestroy {
-  selectedDates: Date[] = [];
-  private unsubscribe$ = new Subject<void>();
   @ViewChild(MatCalendar) calendar!: MatCalendar<Date>;
 
-  constructor(
-    private dataService: DataService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  selectedDates: Date[] = [];
+
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.dataService.data$
@@ -45,6 +38,29 @@ export class CalendarComponent implements OnInit, OnDestroy {
         );
         if (index !== -1) {
           this.selectedDates.splice(index, 1);
+          this.updateCalendar();
+        }
+      });
+
+    this.dataService.editAppointment$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: any) => {
+        const oldDate = data?.date;
+        const newDate = data?.appointment.date;
+
+        if (data && newDate) {
+          const updatedDate = new Date(newDate);
+          this.selectedDates.push(updatedDate);
+
+          const index = this.selectedDates.findIndex(
+            (date) => date.getTime() === oldDate.getTime()
+          );
+
+          if (index !== -1) {
+            this.selectedDates.splice(index, 1);
+            this.updateCalendar();
+          }
+
           this.updateCalendar();
         }
       });

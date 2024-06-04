@@ -12,7 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    DatePipe, // Choose one date module
+    DatePipe,
   ],
   providers: [NativeDateAdapter],
   exports: [CalendarComponent],

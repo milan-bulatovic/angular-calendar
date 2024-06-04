@@ -1,0 +1,13 @@
+@import "../../../../scss/main.scss";
+
+.appointment__details {
+  @include flex(center, space-between);
+}
+
+.appointment__action {
+  @include flex(center, flex-end);
+
+  button:not(:nth-child(2)) {
+    margin-right: 10px;
+  }
+}
