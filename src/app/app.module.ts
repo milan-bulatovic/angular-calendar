@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppointmentsModule } from './home/appointments-list/appointments.module';
 import { HomeModule } from './home/home.module';
 import { NavigationComponent } from './shared/components/navigation.component';
+import { AllAppointmentsModule } from './all-appointments/all-appointments.module';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
@@ -31,6 +32,7 @@ import { NavigationComponent } from './shared/components/navigation.component';
     MatButtonModule,
     AppointmentsModule,
     HomeModule,
+    AllAppointmentsModule,
   ],
   bootstrap: [AppComponent],
 })

@@ -3,10 +3,6 @@
 }
 
 ::ng-deep .mat-calendar-body-cell.selected-date {
-  background-color: rgb(
-    204,
-    21,
-    85
-  ); // Light blue background for selected dates
+  background-color: rgb(204, 21, 85);
   border-radius: 50%;
 }

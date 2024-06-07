@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { AllAppointmentsComponent } from './all-appointments/all-appointments.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
+  {
+    path: 'all-appointments',
+    loadChildren: () =>
+      import('./all-appointments/all-appointments.module').then(
+        (m) => m.AllAppointmentsModule
+      ),
+  },
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({

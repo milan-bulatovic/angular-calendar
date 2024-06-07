@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NewAppointmentComponent } from '../add-new-appointment/new-appointment.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from 'src/app/shared/services/send-data.service';
 import {
   Appointment,
   EditAppointment,
