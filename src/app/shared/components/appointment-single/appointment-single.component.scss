@@ -2,6 +2,12 @@
 
 .appointment__details {
   @include flex(center, space-between);
+  width: inherit;
+  background-color: #424242;
+  color: $text-color;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
 }
 
 .appointment__action {

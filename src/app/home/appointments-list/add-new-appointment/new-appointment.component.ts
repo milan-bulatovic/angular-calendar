@@ -25,7 +25,6 @@ export class NewAppointmentComponent implements OnInit {
     private dialogRef: MatDialogRef<NewAppointmentComponent>
   ) {
     this.editData = this.data;
-
     this.editData ? (this.edit = true) : (this.edit = false);
   }
 
@@ -54,11 +53,7 @@ export class NewAppointmentComponent implements OnInit {
         date: this.form.value.date,
         note: this.form.value.note,
       };
-      this.dataService.editAppointment(
-        appointment,
-        this.editData.index,
-        this.editData.date
-      );
+      this.dataService.editAppointment(appointment, this.editData.index);
       this.dialogRef.close();
     }
   }

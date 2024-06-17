@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NewAppointmentComponent } from '../add-new-appointment/new-appointment.component';
+import { NewAppointmentComponent } from '../../../home/appointments-list/add-new-appointment/new-appointment.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  Appointment,
-  EditAppointment,
-} from 'src/app/shared/models/appointment.model';
+import { Appointment } from 'src/app/shared/models/appointment.model';
 
 @Component({
   selector: 'app-appointment-single',
@@ -15,13 +12,14 @@ export class AppointmentSingleComponent {
   @Input() data!: Appointment;
   @Input() index!: number;
   @Input() date!: string;
-  @Output() deleteAppointment = new EventEmitter<void>();
-  @Output() editAppointment = new EventEmitter<EditAppointment>();
+  @Input() allAppointmentsPage!: boolean;
+  @Output() deleteAppointment = new EventEmitter<Appointment>();
+  @Output() viewAppointment = new EventEmitter<Appointment>();
 
   constructor(public dialog: MatDialog) {}
 
   onDeleteAppointment() {
-    this.deleteAppointment.emit();
+    this.deleteAppointment.emit(this.data);
   }
 
   onEditAppointment() {
@@ -30,11 +28,15 @@ export class AppointmentSingleComponent {
       index: this.index,
       date: this.date,
     };
-    this.editAppointment.emit(appointmentData);
+
     this.dialog.open(NewAppointmentComponent, {
       data: appointmentData,
       width: '30%',
       height: '50%',
     });
+  }
+
+  onViewAppointment() {
+    this.viewAppointment.emit(this.data);
   }
 }

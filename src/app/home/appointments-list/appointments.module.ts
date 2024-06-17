@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppointmentSingleComponent } from './appointment-single/appointment-single.component';
 import { NewAppointmentComponent } from './add-new-appointment/new-appointment.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -12,6 +11,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarModule } from '../calendar/calendar.module';
 import { AppointmentsComponent } from './appointments.component';
+import { AppointmentSingleModule } from 'src/app/shared/components/appointment-single/appointment-single.module';
 
 const routes: Routes = [
   {
@@ -21,11 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AppointmentsComponent,
-    AppointmentSingleComponent,
-    NewAppointmentComponent,
-  ],
+  declarations: [AppointmentsComponent, NewAppointmentComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -37,11 +33,8 @@ const routes: Routes = [
     DragDropModule,
     CalendarModule,
     RouterModule.forChild(routes),
+    AppointmentSingleModule,
   ],
-  exports: [
-    AppointmentsComponent,
-    AppointmentSingleComponent,
-    NewAppointmentComponent,
-  ],
+  exports: [AppointmentsComponent, NewAppointmentComponent],
 })
 export class AppointmentsModule {}

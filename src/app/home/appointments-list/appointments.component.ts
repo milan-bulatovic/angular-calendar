@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewAppointmentComponent } from './add-new-appointment/new-appointment.component';
 import { Subject, takeUntil } from 'rxjs';
@@ -16,43 +16,18 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   allAppointments: Appointment[] = [];
 
-  constructor(
-    public dialog: MatDialog,
-    private dataService: DataService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(public dialog: MatDialog, private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.dataService.data$.pipe(takeUntil(this.unsubscribe$)).subscribe({
-      next: (data: any) => {
-        this.allAppointments.push(data);
-        console.log(this.allAppointments);
-      },
-      error: (error) => {
-        console.error('Error updating appointment:', error);
-      },
-    });
-
-    this.dataService.editAppointment$
+    this.dataService.appointments$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: (data: any) => {
-          if (data && data.appointment && data.index !== undefined) {
-            const updatedAppointment = data.appointment;
-            const appointmentIndex = data.index;
-
-            this.allAppointments.splice(
-              appointmentIndex,
-              1,
-              updatedAppointment
-            );
-            this.cdr.detectChanges();
-          }
-        },
-        error: (error) => {
-          console.error('Error updating appointment:', error);
-        },
+      .subscribe((appointments) => {
+        this.allAppointments = appointments;
       });
+  }
+
+  deleteAppointment(appointment: Appointment) {
+    this.dataService.deleteAppointment(appointment);
   }
 
   drop(event: CdkDragDrop<Appointment[]>) {
@@ -68,20 +43,6 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       width: '30%',
       height: '50%',
     });
-  }
-
-  onDeleteAppointment(index: number) {
-    const deletedDate = new Date(this.allAppointments[index].date);
-    this.allAppointments.splice(index, 1);
-    this.dataService.deleteAppointment(deletedDate);
-    this.cdr.detectChanges();
-  }
-
-  onEditAppointment(event: { appointment: any; index: number; date: string }) {
-    const { appointment, index, date } = event;
-    this.dataService.editAppointment(appointment, index, date);
-    this.allAppointments[index] = appointment;
-    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

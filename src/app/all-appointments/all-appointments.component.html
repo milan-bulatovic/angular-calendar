@@ -1,7 +1,22 @@
 <div class="wrapper">
-  <h1>List of all appointments to implement</h1>
-  <p>
-    From here you can go to
-    <a [routerLink]="['/all-appointments', '1']">child route</a>
-  </p>
+  <main>
+    <div class="all__appointments">
+      <ng-container *ngIf="allAppointments.length > 0; else noContentBlock">
+        <div
+          *ngFor="let appointment of allAppointments; let i = index"
+          cdkDrag
+          [cdkDragData]="appointment"
+        >
+          <app-appointment-single
+            [data]="appointment"
+            [allAppointmentsPage]="allAppointmentsPage"
+            (viewAppointment)="onViewAppointment($event, i)"
+          ></app-appointment-single>
+        </div>
+      </ng-container>
+      <ng-template #noContentBlock>
+        <div class="no-content">No appointments available.</div>
+      </ng-template>
+    </div>
+  </main>
 </div>

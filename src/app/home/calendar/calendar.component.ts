@@ -5,7 +5,6 @@ import {
 } from '@angular/material/datepicker';
 import { DataService } from '../../shared/services/send-data.service';
 import { Subject, takeUntil } from 'rxjs';
-import { Appointment } from '../../shared/models/appointment.model';
 
 @Component({
   selector: 'app-calendar',
@@ -22,47 +21,13 @@ export class CalendarComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.dataService.data$
+    this.dataService.appointments$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data: Appointment) => {
-        const newDate = new Date(data.date);
-        this.selectedDates.push(newDate);
-        this.updateCalendar();
-      });
-
-    this.dataService.deleteAppointment$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((deletedDate: Date) => {
-        const index = this.selectedDates.findIndex(
-          (date) => date.getTime() === deletedDate.getTime()
+      .subscribe((appointments) => {
+        this.selectedDates = appointments.map(
+          (appointment) => new Date(appointment.date)
         );
-        if (index !== -1) {
-          this.selectedDates.splice(index, 1);
-          this.updateCalendar();
-        }
-      });
-
-    this.dataService.editAppointment$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data: any) => {
-        const oldDate = data?.date;
-        const newDate = data?.appointment.date;
-
-        if (data && newDate) {
-          const updatedDate = new Date(newDate);
-          this.selectedDates.push(updatedDate);
-
-          const index = this.selectedDates.findIndex(
-            (date) => date.getTime() === oldDate.getTime()
-          );
-
-          if (index !== -1) {
-            this.selectedDates.splice(index, 1);
-            this.updateCalendar();
-          }
-
-          this.updateCalendar();
-        }
+        this.updateCalendar();
       });
   }
 
@@ -80,7 +45,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
   };
 
   updateCalendar() {
-    this.calendar.updateTodaysDate();
+    if (this.calendar) {
+      this.calendar.updateTodaysDate();
+    }
   }
 
   ngOnDestroy(): void {

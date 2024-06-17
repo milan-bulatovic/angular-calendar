@@ -6,7 +6,6 @@
   >
     <ng-container *ngIf="allAppointments.length > 0; else noContentBlock">
       <div
-        class="appointments__single"
         *ngFor="let appointment of allAppointments; let i = index"
         cdkDrag
         [cdkDragData]="appointment"
@@ -15,8 +14,7 @@
           [data]="appointment"
           [index]="i"
           [date]="appointment.date"
-          (deleteAppointment)="onDeleteAppointment(i)"
-          (editAppointment)="onEditAppointment($event)"
+          (deleteAppointment)="deleteAppointment($event)"
         ></app-appointment-single>
       </div>
     </ng-container>

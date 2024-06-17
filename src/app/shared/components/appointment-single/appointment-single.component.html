@@ -1,0 +1,29 @@
+<div class="appointment__details">
+  <div class="date__time">
+    <p>{{ data.date | date }}</p>
+    <p>{{ data.note }}</p>
+  </div>
+  <div class="appointment__action">
+    <button
+      *ngIf="!allAppointmentsPage"
+      class="btn"
+      (click)="onEditAppointment()"
+    >
+      Edit
+    </button>
+    <button
+      *ngIf="!allAppointmentsPage"
+      class="btn"
+      (click)="onDeleteAppointment()"
+    >
+      Delete
+    </button>
+    <button
+      *ngIf="allAppointmentsPage"
+      class="btn"
+      (click)="onViewAppointment()"
+    >
+      View
+    </button>
+  </div>
+</div>

@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChildRouteComponent } from './child-route.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AppointmentDetailsComponent } from './appointment-details.component';
 
 const routes: Routes = [
   {
     path: ':id',
-    component: ChildRouteComponent,
+    component: AppointmentDetailsComponent,
   },
 ];
 
 @NgModule({
-  declarations: [ChildRouteComponent],
+  declarations: [AppointmentDetailsComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
-  exports: [ChildRouteComponent],
+  exports: [AppointmentDetailsComponent],
 })
-export class ChildRouteModule {}
+export class AppointmentDetailsModule {}

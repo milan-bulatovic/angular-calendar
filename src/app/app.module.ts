@@ -13,11 +13,11 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppointmentsModule } from './home/appointments-list/appointments.module';
 import { HomeModule } from './home/home.module';
-import { NavigationComponent } from './shared/components/navigation.component';
 import { AllAppointmentsModule } from './all-appointments/all-appointments.module';
+import { NavigationModule } from './shared/components/navigation/navigation.module';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent],
+  declarations: [AppComponent],
   imports: [
     AppRoutingModule,
     RouterModule,
@@ -33,6 +33,7 @@ import { AllAppointmentsModule } from './all-appointments/all-appointments.modul
     AppointmentsModule,
     HomeModule,
     AllAppointmentsModule,
+    NavigationModule,
   ],
   bootstrap: [AppComponent],
 })

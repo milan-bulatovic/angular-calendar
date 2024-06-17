@@ -1,31 +1,62 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Appointment, EditAppointment } from '../models/appointment.model';
+import { BehaviorSubject } from 'rxjs';
+import { Appointment } from '../models/appointment.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  private dataSubject = new Subject<Appointment>();
-  data$ = this.dataSubject.asObservable();
+  private appointmentsKey = 'appointments';
 
-  private deleteAppointmentSubject = new Subject<Date>();
-  deleteAppointment$ = this.deleteAppointmentSubject.asObservable();
-
-  private editAppointmentData = new BehaviorSubject<EditAppointment | null>(
-    null
+  private appointmentsSubject = new BehaviorSubject<Appointment[]>(
+    this.getAppointmentsFromLocalStorage()
   );
-  editAppointment$ = this.editAppointmentData.asObservable();
 
-  sendData(data: Appointment) {
-    this.dataSubject.next(data);
+  appointments$ = this.appointmentsSubject.asObservable();
+
+  constructor() {}
+
+  private getAppointmentsFromLocalStorage(): Appointment[] {
+    const data = localStorage.getItem(this.appointmentsKey);
+    return data ? JSON.parse(data) : [];
   }
 
-  deleteAppointment(date: Date) {
-    this.deleteAppointmentSubject.next(date);
+  private saveAppointmentsToLocalStorage(appointments: Appointment[]): void {
+    localStorage.setItem(this.appointmentsKey, JSON.stringify(appointments));
+    this.appointmentsSubject.next(appointments);
   }
 
-  editAppointment(appointment: any, index: number, date: string) {
-    this.editAppointmentData.next({ appointment, index, date });
+  sendData(appointment: Appointment): void {
+    const appointments = this.getAppointmentsFromLocalStorage();
+    appointments.push(appointment);
+    this.saveAppointmentsToLocalStorage(appointments);
+  }
+
+  editAppointment(updatedAppointment: Appointment, index: number): void {
+    const appointments = this.getAppointmentsFromLocalStorage();
+    appointments[index] = updatedAppointment;
+    this.saveAppointmentsToLocalStorage(appointments);
+  }
+
+  deleteAppointment(appointmentToDelete: Appointment): void {
+    const appointments = this.getAppointmentsFromLocalStorage();
+
+    const normalizedDateToDelete = new Date(
+      appointmentToDelete.date
+    ).toISOString();
+
+    const index = appointments.findIndex((app) => {
+      const normalizedDate = new Date(app.date).toISOString();
+
+      return (
+        normalizedDate === normalizedDateToDelete &&
+        app.note === appointmentToDelete.note
+      );
+    });
+
+    if (index !== -1) {
+      appointments.splice(index, 1);
+      this.saveAppointmentsToLocalStorage(appointments);
+    }
   }
 }
