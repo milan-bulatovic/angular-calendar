@@ -13,13 +13,13 @@ export class AppointmentSingleComponent {
   @Input() index!: number;
   @Input() date!: string;
   @Input() allAppointmentsPage!: boolean;
-  @Output() deleteAppointment = new EventEmitter<Appointment>();
+  @Output() deleteAppointment = new EventEmitter<number>();
   @Output() viewAppointment = new EventEmitter<Appointment>();
 
   constructor(public dialog: MatDialog) {}
 
   onDeleteAppointment() {
-    this.deleteAppointment.emit(this.data);
+    this.deleteAppointment.emit(this.index);
   }
 
   onEditAppointment() {

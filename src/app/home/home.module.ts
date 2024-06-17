@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { AppointmentsModule } from './appointments-list/appointments.module';
-import { CalendarModule } from './calendar/calendar.module';
+import { CalendarModule } from '../shared/components/calendar/calendar.module';
 
 const routes: Routes = [
   {

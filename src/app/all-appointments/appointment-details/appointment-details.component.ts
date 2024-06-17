@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Appointment } from 'src/app/shared/models/appointment.model';
 
 @Component({

@@ -14,7 +14,7 @@
           [data]="appointment"
           [index]="i"
           [date]="appointment.date"
-          (deleteAppointment)="deleteAppointment($event)"
+          (deleteAppointment)="deleteAppointment(i)"
         ></app-appointment-single>
       </div>
     </ng-container>

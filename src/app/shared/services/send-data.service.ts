@@ -38,25 +38,27 @@ export class DataService {
     this.saveAppointmentsToLocalStorage(appointments);
   }
 
-  deleteAppointment(appointmentToDelete: Appointment): void {
+  deleteAppointment(index: number): void {
     const appointments = this.getAppointmentsFromLocalStorage();
+    appointments.splice(index, 1);
+    this.saveAppointmentsToLocalStorage(appointments);
 
-    const normalizedDateToDelete = new Date(
-      appointmentToDelete.date
-    ).toISOString();
+    // const normalizedDateToDelete = new Date(
+    //   appointmentToDelete.date
+    // ).toISOString();
 
-    const index = appointments.findIndex((app) => {
-      const normalizedDate = new Date(app.date).toISOString();
+    // const index = appointments.findIndex((app) => {
+    //   const normalizedDate = new Date(app.date).toISOString();
 
-      return (
-        normalizedDate === normalizedDateToDelete &&
-        app.note === appointmentToDelete.note
-      );
-    });
+    //   return (
+    //     normalizedDate === normalizedDateToDelete &&
+    //     app.note === appointmentToDelete.note
+    //   );
+    // });
 
-    if (index !== -1) {
-      appointments.splice(index, 1);
-      this.saveAppointmentsToLocalStorage(appointments);
-    }
+    // if (index !== -1) {
+    //   appointments.splice(index, 1);
+    //   this.saveAppointmentsToLocalStorage(appointments);
+    // }
   }
 }

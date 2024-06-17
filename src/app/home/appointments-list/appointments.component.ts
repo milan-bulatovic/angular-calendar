@@ -26,8 +26,8 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteAppointment(appointment: Appointment) {
-    this.dataService.deleteAppointment(appointment);
+  deleteAppointment(i: number) {
+    this.dataService.deleteAppointment(i);
   }
 
   drop(event: CdkDragDrop<Appointment[]>) {

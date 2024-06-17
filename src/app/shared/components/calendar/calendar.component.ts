@@ -3,7 +3,7 @@ import {
   MatCalendar,
   MatCalendarCellClassFunction,
 } from '@angular/material/datepicker';
-import { DataService } from '../../shared/services/send-data.service';
+import { DataService } from '../../services/send-data.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

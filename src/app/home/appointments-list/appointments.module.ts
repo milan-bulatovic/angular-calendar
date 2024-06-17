@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarModule } from '../calendar/calendar.module';
+import { CalendarModule } from '../../shared/components/calendar/calendar.module';
 import { AppointmentsComponent } from './appointments.component';
 import { AppointmentSingleModule } from 'src/app/shared/components/appointment-single/appointment-single.module';
 
