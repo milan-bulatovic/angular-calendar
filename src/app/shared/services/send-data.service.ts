@@ -12,6 +12,8 @@ export class DataService {
     this.getAppointmentsFromLocalStorage()
   );
 
+  test: string = 'test';
+
   appointments$ = this.appointmentsSubject.asObservable();
 
   constructor() {}
