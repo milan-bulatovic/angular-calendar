@@ -14,7 +14,7 @@ export class AppointmentSingleComponent {
   @Input() date!: string;
   @Input() allAppointmentsPage!: boolean;
   @Output() deleteAppointment = new EventEmitter<number>();
-  @Output() viewAppointment = new EventEmitter<Appointment>();
+  @Output() viewAppointmentDetails = new EventEmitter<Appointment>();
 
   constructor(public dialog: MatDialog) {}
 
@@ -36,7 +36,7 @@ export class AppointmentSingleComponent {
     });
   }
 
-  onViewAppointment() {
-    this.viewAppointment.emit(this.data);
+  onViewAppointmentDetails() {
+    this.viewAppointmentDetails.emit(this.data);
   }
 }
